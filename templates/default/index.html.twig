@@ -3,10 +3,20 @@
 {% block title %}home page{% endblock %}
 
 {% block body %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+{% for party in parties %}
+    <div class="card"   style="width: 18rem; margin-top: 50px; background-color: #dfeaf1">
+        <img src="{{ party.imagePath }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ party.title }}</h5>
+            <p class="card-text">{{ party.description }}</p>
+            <a href="#" class="btn btn-lg btn-secondary">book for {{party.priceperhour}}$ p.h</a>
+        </div>
+    </div>
 
-    <h1></h1>
-    <p>
-        Welcome to my website !
-    </p>
+    </div>
 
+    {% endfor %}
+    </div>
 {% endblock %}

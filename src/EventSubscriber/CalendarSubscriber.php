@@ -20,9 +20,7 @@ class CalendarSubscriber implements EventSubscriberInterface
         UrlGeneratorInterface $router
     )
     {
-        $this->bookingRepository = $bookingRepository;
-        $this->router = $router;
-    }
+                        $this->bookingRepository = $bookingRepository;}
 
     public static function getSubscribedEvents()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\PartyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,11 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'default')]
-    public function index(): Response
+            public function index(PartyRepository $partyRepository): Response
     {
-        $template = 'default/index.html.twig';
-        $argsArray = [];
-
-        return $this->render($template, $argsArray);
+        return $this->render('default/index.html.twig', [
+            'parties' => $partyRepository->findAll(),
+        ]);
     }
+
+
 }
