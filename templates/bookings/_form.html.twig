@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+<button class="btn btn-primary">{{ button_label|default('Book') }}</button>
+
+<a class="btn btn-danger" style="float:right;" href="{{ path('default') }}">Cancel</a>
+{{ form_end(form) }}
