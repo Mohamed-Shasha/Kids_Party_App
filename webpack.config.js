@@ -20,7 +20,10 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
+    // .addStyleEntry('datepicker','./assets/datepicker/datepicker.css')
     .addEntry('app', './assets/app.js')
+    // .addEntry('datepicker', './assets/datepicker/datepicker.js')
+
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -69,7 +72,12 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    // .autoProvidejQuery()
+    .autoProvideVariables({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery'
+    })
 ;
 
 module.exports = Encore.getWebpackConfig();

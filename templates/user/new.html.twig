@@ -4,9 +4,13 @@
 
 {% block body %}
 
-    <h1 style="margin-top: 100px">Registration</h1>
 
-    {{ include('user/_form.html.twig') }}
+<form method="post"
+      style="margin-top: 150px;margin-left:250px;width: 500px;height: 200px;align-items: center;">
+    <div class="container" style="background-color: #f5e6f6;border-radius: 20px; padding: 20px">
+        <h1>Registration</h1>
+        {{ include('user/_form.html.twig') }}
 
-    <button class="btn-danger" style="float: right" href="{{ path('user_index') }} cl">back to list</button>
-{% endblock %}
+        <a href="{{ path('default') }}" class="btn btn-danger"
+           style="float: right">Back Home</a>
+        {% endblock %}

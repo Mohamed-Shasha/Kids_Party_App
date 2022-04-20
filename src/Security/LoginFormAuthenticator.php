@@ -58,7 +58,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         if( in_array( 'ROLE_ADMIN',$token->getUser()->getRoles() ) ) {
             return new RedirectResponse($this->urlGenerator->generate('dashboard'));
         } else {
-            return new RedirectResponse($this->urlGenerator->generate('app_party_index'));
+            return new RedirectResponse($this->urlGenerator->generate('default'));
         }
 //        throw new Ex ception('TODO: provide a valid redirect inside '.__FILE__);
     }

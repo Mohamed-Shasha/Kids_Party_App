@@ -49,7 +49,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/new.html.twig', [
@@ -58,7 +58,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN')]
+
     #[Route('/{id}', name: 'user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
@@ -66,7 +66,7 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
-    #[IsGranted('ROLE_ADMIN')]
+//    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}/edit', name: 'user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
@@ -89,7 +89,7 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
-    #[IsGranted('ROLE_ADMIN')]
+//    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}', name: 'user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {

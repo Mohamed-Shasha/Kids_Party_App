@@ -2,31 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Booking;
+use App\Entity\Bookings;
+
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @method Booking|null find($id, $lockMode = null, $lockVersion = null)
- * @method Booking|null findOneBy(array $criteria, array $orderBy = null)
- * @method Booking[]    findAll()
- * @method Booking[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Bookings|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Bookings|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Bookings[]    findAll()
+ * @method Bookings[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class BookingRepository extends ServiceEntityRepository
+class BookingsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Booking::class);
-
+        parent::__construct($registry, Bookings::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Booking $entity, bool $flush = true): void
+    public function add(Bookings $entity, bool $flush = true): void
     {
 
         $this->_em->persist($entity);
@@ -39,7 +40,7 @@ class BookingRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Booking $entity, bool $flush = true): void
+    public function remove(Bookings $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,7 +49,7 @@ class BookingRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Booking[] Returns an array of Booking objects
+    //  * @return Bookin[] Returns an array of Bookin objects
     //  */
     /*
     public function findByExampleField($value)
@@ -65,7 +66,7 @@ class BookingRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Booking
+    public function findOneBySomeField($value): ?Bookin
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.exampleField = :val')

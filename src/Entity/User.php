@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,6 +25,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255)]
     private $role = 'ROLE_USER';
+
+
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Bookings::class)]
+    private $bookings;
+
+    public function __construct()
+    {
+        $this->bookings = new ArrayCollection();
+
+    }
 
     public function getId(): ?int
     {
@@ -100,5 +113,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->role = $role;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @return Collection<int, Bookings>
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Bookings $booking): self
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings[] = $booking;
+            $booking->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Bookings $booking): self
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getUser() === $this) {
+                $booking->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bookings>
+     */
+    public function getBooking(): Collection
+    {
+        return $this->bookings;
     }
 }

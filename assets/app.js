@@ -6,7 +6,16 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
+//your css files
+
+//jquery just the $ sign
+// create global $ and jQuery variables
+
+
 import './styles/app.css';
+
+
 
 // start the Stimulus application
 import './bootstrap';
+
