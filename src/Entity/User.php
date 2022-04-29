@@ -31,9 +31,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Bookings::class)]
     private $bookings;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comment::class)]
+    private $comments;
+
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
+        $this->comments = new ArrayCollection();
 
     }
 
@@ -156,5 +160,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getBooking(): Collection
     {
         return $this->bookings;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
     }
 }

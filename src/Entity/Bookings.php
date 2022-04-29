@@ -135,7 +135,6 @@ class Bookings
         $diff = ($this->endAt)->diff($this->beginAt);
         return $diff->h + ($diff->i) / 60;
 
-
     }
 
     public function getAmount(): ?float

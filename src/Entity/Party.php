@@ -32,9 +32,13 @@ class Party
     #[ORM\OneToMany(mappedBy: 'title', targetEntity: Bookings::class)]
     private $bookings;
 
+    #[ORM\OneToMany(mappedBy: 'party', targetEntity: Comment::class)]
+    private $comments;
+
     public function __construct()
     {
         $this->bookings = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,5 +126,35 @@ class Party
   public function __toString(): string
   {
       return $this->title;
+  }
+
+  /**
+   * @return Collection<int, Comment>
+   */
+  public function getComments(): Collection
+  {
+      return $this->comments;
+  }
+
+  public function addComment(Comment $comment): self
+  {
+      if (!$this->comments->contains($comment)) {
+          $this->comments[] = $comment;
+          $comment->setParty($this);
+      }
+
+      return $this;
+  }
+
+  public function removeComment(Comment $comment): self
+  {
+      if ($this->comments->removeElement($comment)) {
+          // set the owning side to null (unless already changed)
+          if ($comment->getParty() === $this) {
+              $comment->setParty(null);
+          }
+      }
+
+      return $this;
   }
 }

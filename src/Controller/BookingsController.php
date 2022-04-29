@@ -3,12 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Bookings;
-use App\Entity\Party;
 use App\Form\Bookings1Type;
 use App\Form\BookingsType;
 use App\Repository\BookingsRepository;
 use App\Repository\PartyRepository;
-use phpDocumentor\Reflection\Types\This;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,16 +34,13 @@ class BookingsController extends AbstractController
         $form->handleRequest($request);
 
 
-
-
-
         if ($form->isSubmitted() && $form->isValid()) {
 
             $booking->setUser($this->getUser());
 
             $party = $partyRepository->find($id);
             $booking->setTitle($party);
-            $booking->setAmount($party->getPriceperhour()*$booking->getNumberOfKids()*$booking->getDuration());
+            $booking->setAmount($party->getPriceperhour() * $booking->getNumberOfKids() * $booking->getDuration());
             $bookingsRepository->add($booking);
 
             return $this->redirectToRoute('app_bookings_index', [], Response::HTTP_SEE_OTHER);
@@ -55,7 +50,7 @@ class BookingsController extends AbstractController
         return $this->renderForm('bookings/new.html.twig', [
             'booking' => $booking,
             'form' => $form,
-            'id'=>$id
+            'id' => $id
 
 
         ]);
@@ -89,7 +84,7 @@ class BookingsController extends AbstractController
     #[Route('/{id}', name: 'app_bookings_delete', methods: ['POST'])]
     public function delete(Request $request, Bookings $booking, BookingsRepository $bookingsRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$booking->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $booking->getId(), $request->request->get('_token'))) {
             $bookingsRepository->remove($booking);
         }
 

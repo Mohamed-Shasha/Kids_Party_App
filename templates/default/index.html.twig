@@ -1,27 +1,60 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}home page{% endblock %}
 
 {% block body %}
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-            {% for party in parties %}
-            <div class="card"
-                 style="width: 18rem;padding: 2px ;border-style:solid;border-color:black; margin-top: 50px; ">
-                <img src="{{ party.imagePath }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ party.title }}</h5>
-                    <p class="card-text">{{ party.description }}</p>
+    {# <div class="row row-cols-1 row-cols-md-3 g-4"> #}
+    {# <div class="col"> #}
+    <main role="main">
 
-                    <a href="{{ path('app_bookings_new', {'id': party.id}) }}"
-                       class="btn btn-dark"
-                       style="background-color: #6b21a8">book for {{ party.priceperhour }}$ p.h</a>
-
-                </div>
-            </div>
+    <section class="jumbotron text-center" style=" padding-top:  3rem;
+  padding-bottom:  3rem;
+  margin-bottom: 0;
+  background-color: #fff;">
+        <div class="container" style="max-width: 40rem;">
+            <h1 class="jumbotron-heading" style="font-weight: 700;">Party 4Kids Dublin</h1>
+            <p class="lead text-muted">Welcome to Party 4Kids we provide birthday parties, ball pool parties, cake
+                delivery and more...</p>
 
         </div>
+    </section>
+    <div class="album py-5 bg-light">
+    <div class="container">
+    <div class="row">
+    {% for party in parties %}
+        <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+                <img class="card-img-top" src="{{ party.imagePath }}" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                        additional content. This content is a little bit longer.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
 
-        {% endfor %}
-    </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# <div class="card" #}
+        {# style="width: 18rem;padding: 2px ;border-style:solid;border-color:black; margin-top: 50px; "> #}
+        {# <img src="{{ party.imagePath }}" class="card-img-top" alt="..."> #}
+        {# <div class="card-body"> #}
+        {# <h5 class="card-title">{{ party.title }}</h5> #}
+        {# <p class="card-text">{{ party.description }}</p> #}
+
+        {# <a href="{{ path('app_bookings_new', {'id': party.id}) }}" #}
+        {# class="btn btn-dark" #}
+        {# style="background-color: #6b21a8">book for {{ party.priceperhour }}$ p.h</a> #}
+
+        {# </div> #}
+        {# </div> #}
+
+        {# </div> #}
+
+    {% endfor %}
+
 {% endblock %}

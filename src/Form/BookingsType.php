@@ -40,16 +40,7 @@ class BookingsType extends AbstractType
 
                     'min' => date('hh')
                 ]
-            ])
-            ->add('numberOfKids', IntegerType::class, [
-                    'required' => true,
-                    'error_bubbling' => true,
-                    'attr' => [
-                        'min' => 6,
-                        ' max' => 20,
-
-                    ]
-                ]);
+            ]);
 
 
 
