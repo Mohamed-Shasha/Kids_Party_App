@@ -7,9 +7,12 @@
 
     <!-- Page content-->
     <div class="container mt-6">
+
         <div class="row">
+
             <div class="col-lg-12">
                 <!-- Post content-->
+
                 <article>
                     <!-- Post header-->
                     <header class="mb-2">
@@ -26,34 +29,60 @@
                         </p>
 
                     </section>
+
                 </article>
 
-                <a class="btn btn-primary"  href="{{ path('app_comment_new', {'id': party.id}) }}">Leave a review</a>
+                {% if app.user %}
+                    {% if app.user.comments %}
+                        <a class="btn btn-primary" href="{{ path('app_comment_new', {'id': party.id} ) }}">Leave a
+                            review</a>
+                    {% endif %}
+                {% endif %}
 
 
                 <!-- Comments section-->
-                <section class="mb-5">
-                    <div class="card bg-light">
-                        <div class="card-body">
-                            <!-- Comment form-->
 
-                            <!-- Single comment-->
-                            {% for party in parties %}
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"><img class="rounded-circle"
-                                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                                                                    alt="..."/></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">{{ }}</div>
-                                       {{ comment.content}}
+                <section class="mb-lg-4">
+
+                    {% for comment in parties.comments %}
+                        <div class="container mt-5">
+                            <div class="row d-flex justify-content-center">
+
+
+                                <div class="card p-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="user d-flex flex-row align-items-center"><img
+                                                    src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1608/tuktukdesign160800043/61010830-user-icon-man-profile-businessman-avatar-person-glyph-vector-illustration.jpg?ver=6"
+                                                    width="30"
+                                                    class="user-img rounded-circle mr-2"> <span><small
+                                                        class="font-weight-bold text-primary">{{ comment.author }}</small> <small
+                                                        class="font-weight-bold">{{ comment.content }}</small></span>
+                                        </div>
+                                        <small>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') }}</small>
+                                    </div>
+                                    <div class="action d-flex justify-content-between mt-2 align-items-center">
+                                        <div class="reply px-4">
+                                            {% if app.user == comment.author %}
+                                                <a class="btn btn-dark" href="{{ path('app_comment_edit', {'id': comment.id, 'partyId':party.id })}}"><small>edit</small></a>
+                                                <a class="btn btn-dark" href="{{ path('app_comment_delete', {'id': comment.id, 'partyId':party.id })}}"><small>delete</small></a>
+                                            {% endif %}
+                                            <span class="dots"></span>
+
+                                        </div>
+                                        <div class="icons align-items-center"><i class="fa fa-star text-warning"></i> <i
+                                                    class="fa fa-check-circle-o check-icon"></i></div>
                                     </div>
                                 </div>
 
-                            {% endfor %}
+                            </div>
+
 
                         </div>
-                    </div>
+
+                    {% endfor %}
                 </section>
+
+
             </div>
 
 

@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\Party;
 use App\Form\PartyType;
 use App\Repository\CommentRepository;
 use App\Repository\PartyRepository;
+use App\Repository\UserRepository;
+use http\Client\Curl\User;
+use phpDocumentor\Reflection\DocBlock\Tags\Uses;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,15 +45,15 @@ class PartyController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_party_show', methods: ['GET'])]
-    public function show(Party $party,CommentRepository $commentRepository): Response
+    public function show(int $id ,Party $party, PartyRepository $partyRepository,UserRepository $userRepository): Response
     {
-
-
 
 
         return $this->render('party/show.html.twig', [
             'party' => $party,
-            'comments'=> $commentRepository->findAll(),
+            'parties'=>$partyRepository->find($id),
+
+
         ]);
     }
 

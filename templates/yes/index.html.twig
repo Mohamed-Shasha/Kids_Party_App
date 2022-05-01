@@ -24,10 +24,9 @@
                 <td>{{ party.description }}</td>
                 <td>{{ party.priceperhour }}</td>
                 <td>{{ party.imagePath }}</td>
-
                 <td>
-                    <a href="{{ path('app_party_show', {'id': party.id}) }}">show</a>
-                    <a href="{{ path('app_party_edit', {'id': party.id}) }}">edit</a>
+                    <a href="{{ path('app_yes_show', {'id': party.id}) }}">show</a>
+                    <a href="{{ path('app_yes_edit', {'id': party.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -38,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_party_new') }}">Create new</a>
+    <a href="{{ path('app_yes_new') }}">Create new</a>
 {% endblock %}

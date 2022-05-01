@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Comment{% endblock %}
+
+{% block body %}
+    <h1 style="margin-left: 200px; margin-top: 40px;margin-bottom: 70px">delete Comment</h1>
+    <div class="container">
+        <table class="table table-bordered table-danger "style="font-size: large">
+            <tbody >
+            <tr>
+                <th>
+                    content
+                </th>
+                <td>
+                    {{ comment.content }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Author
+                </th>
+                <td>
+                    {{ comment.author }}
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    {{ include('comment/_delete_form.html.twig') }}
+{% endblock %}
