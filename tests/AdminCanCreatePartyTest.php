@@ -26,7 +26,7 @@ class AdminCanCreatePartyTest extends WebTestCase
 
 
         // Arrange - request parameters
-        $httpMethod = ['GET','POST'];
+        $httpMethod = 'GET';
         $url = '/party/new';
 
 
@@ -39,7 +39,7 @@ class AdminCanCreatePartyTest extends WebTestCase
 
 
         $submitButtonName = 'Save';
-        $client->submit($client->request((string)$httpMethod, $url)->selectButton($submitButtonName)->form([
+        $client->submit($client->request($httpMethod, $url)->selectButton($submitButtonName)->form([
             'party[title]' => 'pool party',
             'party[description]' => 'NEW party Test',
             'party[priceperhour]' => 20,
