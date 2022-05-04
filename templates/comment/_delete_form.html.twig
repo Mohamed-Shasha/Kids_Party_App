@@ -1,7 +1,10 @@
-<form method="post" action="{{ path('app_comment_delete', {'id': comment.id,'partyId':party.id})}}"
-      onsubmit="return confirm('Are you sure you want to delete this item?');">
+<div class="container">
+    <form method="post" action="{{ path('app_comment_delete', {'id': comment.id,'partyId':party.id})}}"
+          onsubmit="return confirm('Are you sure you want to delete this item?');">
 
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id ) }}">
-    <button class="btn btn-primary">Delete</button>
-    <a class="btn btn-primary" href="{{ path('app_party_show', {'id':party.id}) }}">go back</a>
-</form>
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id ) }}">
+        <button class="btn btn-primary">Delete</button>
+        <a class="btn btn-primary" style="float: right" href="{{ path('app_party_show', {'id':party.id}) }}">go back</a>
+    </form>
+
+</div>

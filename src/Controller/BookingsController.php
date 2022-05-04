@@ -7,21 +7,36 @@ use App\Form\Bookings1Type;
 use App\Form\BookingsType;
 use App\Repository\BookingsRepository;
 use App\Repository\PartyRepository;
+use App\Repository\UserRepository;
+use http\Client\Curl\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[IsGranted("IS_AUTHENTICATED_FULLY")]
 #[Route('/bookings')]
 class BookingsController extends AbstractController
 {
+    #[IsGranted('ROLE_ADMIN', message: 'No access! Get out!')]
     #[Route('/', name: 'app_bookings_index', methods: ['GET'])]
     public function index(BookingsRepository $bookingsRepository): Response
     {
         return $this->render('bookings/index.html.twig', [
             'bookings' => $bookingsRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/user', name: 'app_bookings_user_index', methods: ['GET'])]
+    public function indexUser(UserInterface $user, BookingsRepository $bookingsRepository, UserRepository $userRepository): Response
+    {
+
+
+
+        return $this->render('bookings/indexUser.html.twig', [
+            'bookings' => $bookingsRepository->findBy(['user' => $this->getUser()])
         ]);
     }
 
@@ -43,7 +58,7 @@ class BookingsController extends AbstractController
             $booking->setAmount($party->getPriceperhour() * $booking->getNumberOfKids() * $booking->getDuration());
             $bookingsRepository->add($booking);
 
-            return $this->redirectToRoute('app_bookings_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_bookings_show', ['id' => $booking->getId()], Response::HTTP_SEE_OTHER);
         }
 
 
@@ -64,6 +79,7 @@ class BookingsController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_BAKER', message: 'No access! Get out!')]
     #[Route('/{id}/edit', name: 'app_bookings_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Bookings $booking, BookingsRepository $bookingsRepository): Response
     {
@@ -81,6 +97,7 @@ class BookingsController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_BAKER', message: 'No access! Get out!')]
     #[Route('/{id}', name: 'app_bookings_delete', methods: ['POST'])]
     public function delete(Request $request, Bookings $booking, BookingsRepository $bookingsRepository): Response
     {

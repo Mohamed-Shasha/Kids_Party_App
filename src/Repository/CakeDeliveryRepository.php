@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\PartyDate;
+use App\Entity\CakeDelivery;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method PartyDate|null find($id, $lockMode = null, $lockVersion = null)
- * @method PartyDate|null findOneBy(array $criteria, array $orderBy = null)
- * @method PartyDate[]    findAll()
- * @method PartyDate[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CakeDelivery|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CakeDelivery|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CakeDelivery[]    findAll()
+ * @method CakeDelivery[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PartyDateRepository extends ServiceEntityRepository
+class CakeDeliveryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, PartyDate::class);
+        parent::__construct($registry, CakeDelivery::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(PartyDate $entity, bool $flush = true): void
+    public function add(CakeDelivery $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class PartyDateRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(PartyDate $entity, bool $flush = true): void
+    public function remove(CakeDelivery $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,15 +46,15 @@ class PartyDateRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return PartyDate[] Returns an array of PartyDate objects
+    //  * @return CakeDelivery[] Returns an array of CakeDelivery objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
+            ->orderBy('c.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -63,10 +63,10 @@ class PartyDateRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?PartyDate
+    public function findOneBySomeField($value): ?CakeDelivery
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

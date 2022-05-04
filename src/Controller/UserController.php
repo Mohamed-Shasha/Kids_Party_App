@@ -66,7 +66,7 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
-//    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}/edit', name: 'user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {

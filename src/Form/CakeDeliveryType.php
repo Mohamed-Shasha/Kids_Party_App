@@ -2,67 +2,49 @@
 
 namespace App\Form;
 
-use App\Entity\Bookings;
+use App\Entity\CakeDelivery;
+
+
 use Symfony\Component\Form\AbstractType;
+
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 
-class BookingsType extends AbstractType
+class CakeDeliveryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('address')
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'date',
                 'attr' => [
-                    'min' => date('Y-m-d')
+                    'min' => date('Y-m-d h:i')
                 ]
 
-
             ])
-            ->add('beginAt', TimeType::class, [
+            ->add('time', TimeType::class, [
                 'widget' => 'single_text',
-                'label' => 'from',
+                'label' => 'time to deliver',
                 'attr' => [
 
                     'min' => date('hh')
                 ]
             ])
-            ->add('endAt', TimeType::class, [
-                'widget' => 'single_text',
-                'label' => 'to',
-                'attr' => [
 
-                    'min' => date('hh')
-                ]
-            ])
-            ->add('numberOfKids',IntegerType::class,[
-
-                'attr' => [
-
-                    'min' =>'6'
-            ]
-
-    ]);
-
-
-
-
-
-
-
+        ;
     }
-
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Bookings::class,
+            'data_class' => CakeDelivery::class,
         ]);
     }
 }

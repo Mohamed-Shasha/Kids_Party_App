@@ -31,6 +31,9 @@
                     </section>
 
                 </article>
+                <a href="{{ path('app_bookings_new', {'id': party.id}) }}"
+                   class="btn btn-dark"
+                   style="background-color: #21a843">book for {{ party.priceperhour }}$ p.h</a>
 
                 {% if app.user %}
                     {% if app.user.comments %}
@@ -50,18 +53,23 @@
 
 
                                 <div class="card p-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="user d-flex flex-row align-items-center"><img
-                                                    src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1608/tuktukdesign160800043/61010830-user-icon-man-profile-businessman-avatar-person-glyph-vector-illustration.jpg?ver=6"
-                                                    width="30"
-                                                    class="user-img rounded-circle mr-2"> <span><small
-                                                        class="font-weight-bold text-primary">{{ comment.author }}</small> <small
-                                                        class="font-weight-bold">{{ comment.content }}</small></span>
-                                        </div>
-                                        <small>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') }}</small>
-                                    </div>
-                                    <div class="action d-flex justify-content-between mt-2 align-items-center">
-                                        <div class="reply px-4">
+
+                                              <div class="d-flex justify-content-sm-between align-items-lg-start">
+                                                <div class="user d-flex flex-row align-items-center"><img
+                                                            src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1608/tuktukdesign160800043/61010830-user-icon-man-profile-businessman-avatar-person-glyph-vector-illustration.jpg?ver=6"
+                                                            width="30"
+                                                            class="user-img rounded-circle mr-2">
+                                                    <span><small class="font-weight-bold text-primary">{{ comment.author }}</small></span>
+
+                                                    <span><small style="margin-left: 20px">{{ comment.content }}</small></span>
+                                                </div>
+
+                                                <small>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') }}</small>
+                                            </div>
+
+
+                                    <div class="action d-flex justify-content-between mt-6 align-items-center">
+                                        <div class="btn-group-sm" style="flex-flow: column" >
                                             {% if app.user == comment.author %}
                                                 <a class="btn btn-dark" href="{{ path('app_comment_edit', {'id': comment.id, 'partyId':party.id })}}"><small>edit</small></a>
                                                 <a class="btn btn-dark" href="{{ path('app_comment_delete', {'id': comment.id, 'partyId':party.id })}}"><small>delete</small></a>

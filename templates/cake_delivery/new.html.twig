@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CakeDelivery{% endblock %}
+
+{% block body %}
+    <h1>Create new CakeDelivery</h1>
+
+    {{ include('cake_delivery/_form.html.twig') }}
+
+    <a href="{{ path('app_delivery_index') }}">back to list</a>
+{% endblock %}

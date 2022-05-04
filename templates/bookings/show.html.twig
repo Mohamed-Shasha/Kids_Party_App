@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bookings{% endblock %}
+{% block title %}Booking{% endblock %}
 
 {% block body %}
-    <h1>Bookings</h1>
+    <h1>Booking</h1>
 
     <table class="table">
         <tbody>
@@ -27,13 +27,16 @@
                 <th>EndAt</th>
                 <td>{{ booking.endAt ? booking.endAt|date('H:i:s') : '' }}</td>
             </tr>
-
+            <tr>
+                <th>price</th>
+                <td>{{ booking.amount}}</td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_bookings_index') }}">back to list</a>
 
-    <a href="{{ path('app_bookings_edit', {'id': booking.id}) }}">edit</a>
+    <a  class="btn btn-primary float-end" href="{{ path('default') }}">back to list</a>
+    <a  class="btn btn-warning float-end" href="{{ path('app_bookings_edit', {'id': booking.id}) }}">edit</a>
 
     {{ include('bookings/_delete_form.html.twig') }}
 {% endblock %}

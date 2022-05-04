@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CakeDelivery index{% endblock %}
+
+{% block body %}
+    <h1>CakeDelivery index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+
+                <th>Name</th>
+                <th>Address</th>
+                <th>date</th>
+                <th>TimeOfDelivery</th>
+                <th>OrderNumber</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cake_delivery in cake_deliveries %}
+            <tr>
+                <td>{{ cake_delivery.id }}</td>
+                <td>{{ cake_delivery.name }}</td>
+                <td>{{ cake_delivery.address }}</td>
+                <td>{{ cake_delivery.date ? cake_delivery.date|date('Y-m-d') : ''}}</td>
+                <td>{{ cake_delivery.time ? cake_delivery.time|date('H:i:s') : ''  }}</td>
+                <td><a href="{{ path('app_cart', {'id': cake_delivery.cadeorder}) }}">
+                    {{ cake_delivery.cadeorder }}</a></td>
+
+
+                <td>
+                    <a href="{{ path('app_delivery_show', {'id': cake_delivery.id}) }}">show</a>
+                    <a href="{{ path('app_delivery_edit', {'id': cake_delivery.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_delivery_new') }}">Create new</a>
+{% endblock %}
