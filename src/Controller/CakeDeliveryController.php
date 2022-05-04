@@ -9,6 +9,7 @@ use App\Repository\CakeDeliveryRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use phpDocumentor\Reflection\Types\This;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/delivery')]
 class CakeDeliveryController extends AbstractController
 {
+    #[IsGranted('ROLE_BAKER', message: 'No access! Get out!')]
     #[Route('/', name: 'app_delivery_index', methods: ['GET'])]
     public function index(CakeDeliveryRepository $cakeDeliveryRepository): Response
     {
@@ -24,24 +26,29 @@ class CakeDeliveryController extends AbstractController
             'cake_deliveries' => $cakeDeliveryRepository->findAll(),
         ]);
     }
+    #[Route('/', name: 'app_user_delivery_index', methods: ['GET'])]
+    public function indexUser(CakeDeliveryRepository $cakeDeliveryRepository): Response
+    {
+        return $this->render('cake_delivery/index.html.twig', [
+            'cake_deliveries' => $cakeDeliveryRepository->findBy(['name'=>$this->getUser()]),
+        ]);
+    }
 
-    /**
-     * @throws OptimisticLockException
-     * @throws ORMException
-     */
+
     #[Route('/new', name: 'app_delivery_new', methods: ['GET', 'POST'])]
-    public function new(CartManager $cartManager,Request $request, CakeDeliveryRepository $cakeDeliveryRepository): Response
+    public function new(Request $request, CartManager $cartManager,CakeDeliveryRepository $cakeDeliveryRepository): Response
     {
         $cakeDelivery = new CakeDelivery();
         $form = $this->createForm(CakeDeliveryType::class, $cakeDelivery);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $cart = $cartManager->getCurrentCart();
-            $cakeDelivery->setName($this->getUser());
+            $cakeDelivery->setUser($this->getUser());
             $cakeDelivery->setCadeorder($cart);
             $cakeDeliveryRepository->add($cakeDelivery);
-            $cart->removeItems();
+
 
             return $this->redirectToRoute('app_delivery_index', [], Response::HTTP_SEE_OTHER);
         }

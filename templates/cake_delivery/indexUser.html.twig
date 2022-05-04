@@ -26,7 +26,7 @@
                 <td>{{ cake_delivery.address }}</td>
                 <td>{{ cake_delivery.date ? cake_delivery.date|date('Y-m-d') : ''}}</td>
                 <td>{{ cake_delivery.time ? cake_delivery.time|date('H:i:s') : ''  }}</td>
-                <td><a href="{{ path('app_cart', {'id': cake_delivery.cadeorder.items}) }}">
+                <td><a href="{{ path('app_cart', {'id': cake_delivery.cadeorder}) }}">
                     {{ cake_delivery.cadeorder }}</a></td>
 
 
