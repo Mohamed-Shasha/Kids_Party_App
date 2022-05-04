@@ -13,8 +13,6 @@ class CakeDelivery
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'address')]
-    private $name;
 
     #[ORM\OneToOne(targetEntity: Order::class, cascade: ['persist', 'remove'])]
     private $cadeorder;
@@ -36,17 +34,6 @@ class CakeDelivery
         return $this->id;
     }
 
-    public function getName(): ?User
-    {
-        return $this->name;
-    }
-
-    public function setName(?User $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 
     public function getCadeorder(): ?order
     {

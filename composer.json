@@ -48,8 +48,8 @@
         "tattali/calendar-bundle": "^1.2",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
-        "zenstruck/foundry": "^1.16",
-      "ext-http": "*"
+        "zenstruck/foundry": "^1.16"
+
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",

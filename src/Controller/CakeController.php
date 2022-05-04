@@ -23,7 +23,7 @@ class CakeController extends AbstractController
             'cakes' => $cakeRepository->findAll(),
         ]);
     }
-
+    #[IsGranted('ROLE_BAKER', message: 'No access! Get out!')]
     #[Route('/new', name: 'app_cake_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CakeRepository $cakeRepository): Response
     {

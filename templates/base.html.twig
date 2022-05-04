@@ -48,12 +48,12 @@
                 </li>
 
 
-                {% if app.user and is_granted("ROLE-USER")%}
+                {% if app.user and is_granted("ROLE_USER")%}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_bookings_user_index') }}">My_Party bookings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_delivery_index') }}">My deliveries </a>
+                        <a class="nav-link" href="{{ path('app_user_delivery_index') }}">My deliveries </a>
                     </li>
                 {% endif %}
 
