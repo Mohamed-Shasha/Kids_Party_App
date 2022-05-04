@@ -10,6 +10,7 @@ use App\Repository\UserRepository;
 use http\Client\Curl\User;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 use phpDocumentor\Reflection\Types\This;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +26,7 @@ class PartyController extends AbstractController
             'parties' => $partyRepository->findAll(),
         ]);
     }
-
+    #[IsGranted('ROLE_ADMIN', message: 'No access! Get out!')]
     #[Route('/new', name: 'app_party_new', methods: ['GET', 'POST'])]
     public function new(Request $request, PartyRepository $partyRepository): Response
     {
@@ -56,7 +57,7 @@ class PartyController extends AbstractController
 
         ]);
     }
-
+    #[IsGranted('ROLE_ADMIN', message: 'No access! Get out!')]
     #[Route('/{id}/edit', name: 'app_party_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Party $party, PartyRepository $partyRepository): Response
     {
@@ -73,7 +74,7 @@ class PartyController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    #[IsGranted('ROLE_ADMIN', message: 'No access! Get out!')]
     #[Route('/{id}', name: 'app_party_delete', methods: ['POST'])]
     public function delete(Request $request, Party $party, PartyRepository $partyRepository): Response
     {
